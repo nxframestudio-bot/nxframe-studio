@@ -1,15 +1,17 @@
-[phases.setup]
-nixPkgs = ["python311"]
-
-[phases.install]
-cmds = ["pip install -r requirements.txt"]
-
 [start]
 cmd = "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
 ```
 
-3. Click **File** → **Save As**
-4. Navigate to your `nxframe_deploy` folder
-5. At the bottom — **File name** box — type:
+Save it.
+
+---
+
+## Step 3 — Push to GitHub
 ```
-nixpacks.toml
+git add .
+```
+```
+git commit -m "fix requirements"
+```
+```
+git push
