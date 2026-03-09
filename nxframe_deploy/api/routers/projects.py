@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, delete as sql_delete
 from pydantic import BaseModel
 import aiofiles
-from PIL import Image
 from api.database import get_db
 from api.models.models import Project
 from api.auth import require_admin
