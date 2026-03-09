@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — NXFRAME STUDIO Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+body { cursor: auto; }
+#cursor, #cursor-ring { display: none; }
+
+.dash-layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; padding-top: 0; }
+
+/* Sidebar */
+.sidebar { background: var(--surface); border-right: 1px solid rgba(0,255,136,.1); padding: 2rem 1.5rem; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
+.sidebar-logo { font-family: var(--D); font-size: 1.4rem; letter-spacing: .14em; color: var(--green); text-shadow: 0 0 16px rgba(0,255,136,.4); margin-bottom: .3rem; }
+.sidebar-sub { font-family: var(--M); font-size: .54rem; letter-spacing: .22em; text-transform: uppercase; color: var(--grey); margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0,255,136,.08); }
+.sidebar-nav { display: flex; flex-direction: column; gap: .3rem; }
+.snav-item { font-family: var(--M); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--grey); background: transparent; border: none; padding: .8rem 1rem; text-align: left; cursor: pointer; transition: all .25s; display: flex; align-items: center; gap: .8rem; border-radius: 2px; }
+.snav-item:hover, .snav-item.active { color: var(--green); background: rgba(0,255,136,.06); }
+.snav-item .badge { background: var(--red); color: #fff; font-size: .48rem; padding: .15rem .4rem; border-radius: 10px; margin-left: auto; }
+.sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid rgba(0,255,136,.08); display: flex; flex-direction: column; gap: .7rem; }
+.sb-ft-btn { font-family: var(--M); font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; background: transparent; border: 1px solid rgba(255,255,255,.08); color: var(--grey); padding: .6rem 1rem; cursor: pointer; transition: all .3s; text-align: left; }
+.sb-ft-btn:hover { color: var(--green); border-color: rgba(0,255,136,.3); }
+.sb-ft-btn.danger:hover { color: var(--red); border-color: var(--red); }
+
+/* Main content */
+.dash-main { padding: 2.5rem 3rem; overflow-y: auto; }
+.dash-header { margin-bottom: 2.5rem; }
+.dash-greeting { font-family: var(--D); font-size: 2.2rem; letter-spacing: .05em; }
+.dash-date { font-family: var(--M); font-size: .6rem; letter-spacing: .2em; color: var(--grey); margin-top: .3rem; }
+
+/* Panels */
+.dash-panel { display: none; }
+.dash-panel.active { display: block; }
+.panel-title { font-family: var(--D); font-size: 1.6rem; letter-spacing: .06em; margin-bottom: 1.8rem; color: var(--white); }
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2rem; }
+.stat-card { background: var(--surface); border: 1px solid rgba(0,255,136,.09); padding: 1.4rem; position: relative; overflow: hidden; }
+.stat-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--green); opacity: .3; }
+.sc-num { font-family: var(--D); font-size: 2.8rem; color: var(--green); line-height: 1; }
+.sc-label { font-family: var(--M); font-size: .56rem; letter-spacing: .18em; text-transform: uppercase; color: var(--grey); margin-top: .4rem; }
+
+/* Messages */
+.msg-list { display: flex; flex-direction: column; gap: .8rem; }
+.msg-card { background: var(--surface); border: 1px solid rgba(0,255,136,.08); padding: 1.4rem 1.6rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; transition: border-color .3s; }
+.msg-card.unread { border-color: rgba(0,255,136,.22); }
+.msg-card.unread::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); display: inline-block; margin-right: .6rem; vertical-align: middle; }
+.msg-name  { font-weight: 700; font-size: .9rem; margin-bottom: .2rem; }
+.msg-email { font-family: var(--M); font-size: .58rem; letter-spacing: .1em; color: var(--green); }
+.msg-type  { font-family: var(--M); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey); margin-top: .5rem; }
+.msg-body  { font-size: .84rem; line-height: 1.65; color: rgba(232,255,242,.65); margin-top: .8rem; }
+.msg-time  { font-family: var(--M); font-size: .54rem; letter-spacing: .1em; color: var(--grey); white-space: nowrap; }
+.msg-actions { display: flex; gap: .5rem; margin-top: .8rem; }
+.msg-btn { font-family: var(--M); font-size: .54rem; letter-spacing: .15em; text-transform: uppercase; background: transparent; border: 1px solid rgba(0,255,136,.15); color: var(--green); padding: .35rem .8rem; cursor: pointer; transition: all .25s; }
+.msg-btn:hover { background: rgba(0,255,136,.08); }
+.msg-btn.del-btn:hover { border-color: var(--red); color: var(--red); }
+.msg-empty { font-family: var(--M); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--grey); padding: 3rem; text-align: center; border: 2px dashed rgba(0,255,136,.08); }
+
+/* Project Table */
+.proj-table { width: 100%; border-collapse: collapse; }
+.proj-table th { font-family: var(--M); font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: var(--green); padding: .8rem 1rem; text-align: left; border-bottom: 1px solid rgba(0,255,136,.1); }
+.proj-table td { font-size: .84rem; padding: .85rem 1rem; border-bottom: 1px solid rgba(0,255,136,.04); vertical-align: middle; color: rgba(232,255,242,.85); }
+.proj-table tr:hover td { background: rgba(0,255,136,.025); }
+.proj-img-thumb { width: 42px; height: 42px; object-fit: cover; border: 1px solid rgba(0,255,136,.12); }
+.proj-img-ph    { width: 42px; height: 42px; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid rgba(0,255,136,.08); }
+.cat-badge { font-family: var(--M); font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; padding: .22rem .6rem; }
+.cat-graphic { color: #a8ff78; background: rgba(168,255,120,.1); }
+.cat-video   { color: #ff9f43; background: rgba(255,159,67,.1); }
+.cat-3d      { color: #74b9ff; background: rgba(116,185,255,.1); }
+.tbl-btn { font-family: var(--M); font-size: .52rem; letter-spacing: .12em; text-transform: uppercase; background: transparent; border: 1px solid rgba(255,255,255,.08); color: var(--grey); padding: .28rem .65rem; cursor: pointer; transition: all .2s; }
+.tbl-btn:hover { color: var(--green); border-color: rgba(0,255,136,.3); }
+.tbl-btn.del:hover { color: var(--red); border-color: var(--red); }
+.vis-toggle { font-size: .8rem; cursor: pointer; opacity: .6; transition: opacity .2s; }
+.vis-toggle:hover { opacity: 1; }
+
+/* Updates table */
+.upd-table-card { background: var(--surface); border: 1px solid rgba(0,255,136,.07); padding: 1.2rem 1.5rem; margin-bottom: .7rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; }
+.utc-cat  { font-family: var(--M); font-size: .52rem; letter-spacing: .16em; text-transform: uppercase; padding: .2rem .6rem; display: inline-block; margin-bottom: .5rem; }
+.utc-title { font-family: var(--D); font-size: 1.15rem; letter-spacing: .03em; }
+.utc-summary { font-size: .8rem; line-height: 1.65; color: rgba(232,255,242,.55); margin-top: .5rem; }
+
+/* Toolbar */
+.panel-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.toolbar-actions { display: flex; gap: .7rem; }
+.toolbar-btn { font-family: var(--M); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--black); background: var(--green); border: none; padding: .65rem 1.4rem; cursor: pointer; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: background .3s; }
+.toolbar-btn:hover { background: var(--white); }
+.toolbar-btn.outline { color: var(--green); background: transparent; border: 1px solid rgba(0,255,136,.28); clip-path: none; }
+.toolbar-btn.outline:hover { background: rgba(0,255,136,.07); }
+
+/* Filter pills */
+.filter-pills { display: flex; gap: .5rem; flex-wrap: wrap; }
+.pill { font-family: var(--M); font-size: .54rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey); background: transparent; border: 1px solid rgba(255,255,255,.07); padding: .35rem .9rem; cursor: pointer; transition: all .25s; }
+.pill.active, .pill:hover { color: var(--black); background: var(--green); border-color: var(--green); }
+
+@media (max-width: 900px) {
+  .dash-layout { grid-template-columns: 1fr; }
+  .sidebar { height: auto; position: relative; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .dash-main { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<div class="dash-layout">
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">NXFRAME</div>
+    <div class="sidebar-sub">Admin Dashboard</div>
+    <nav class="sidebar-nav">
+      <button class="snav-item active" data-panel="overview">📊 Overview</button>
+      <button class="snav-item" data-panel="messages">✉️ Messages <span class="badge" id="sb-badge" style="display:none"></span></button>
+      <button class="snav-item" data-panel="projects">🗂 Projects</button>
+      <button class="snav-item" data-panel="updates">📰 Creative Updates</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="sb-ft-btn" onclick="window.location.href='../index.html'">← Back to Portfolio</button>
+      <button class="sb-ft-btn danger" id="dash-logout">🔒 Logout</button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <div class="dash-greeting">Welcome back, <span style="color:var(--green)">HC</span></div>
+      <div class="dash-date" id="dash-date"></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="dash-panel active" id="panel-overview">
+      <div class="stats-row">
+        <div class="stat-card"><div class="sc-num" id="stat-projects">—</div><div class="sc-label">Total Projects</div></div>
+        <div class="stat-card"><div class="sc-num" id="stat-messages">—</div><div class="sc-label">Total Messages</div></div>
+        <div class="stat-card"><div class="sc-num" id="stat-unread">—</div><div class="sc-label">Unread Messages</div></div>
+        <div class="stat-card"><div class="sc-num" id="stat-updates">—</div><div class="sc-label">Creative Updates</div></div>
+      </div>
+      <div class="panel-title">Recent Messages</div>
+      <div id="overview-messages"></div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="dash-panel" id="panel-messages">
+      <div class="panel-toolbar">
+        <div class="panel-title" style="margin:0">Messages</div>
+        <div class="toolbar-actions">
+          <button class="pill active" data-msg-filter="all">All</button>
+          <button class="pill" data-msg-filter="unread">Unread</button>
+        </div>
+      </div>
+      <div class="msg-list" id="msg-list"></div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="dash-panel" id="panel-projects">
+      <div class="panel-toolbar">
+        <div class="panel-title" style="margin:0">Portfolio Projects</div>
+        <div class="toolbar-actions">
+          <div class="filter-pills">
+            <button class="pill active" data-proj-filter="all">All</button>
+            <button class="pill" data-proj-filter="graphic">Graphic</button>
+            <button class="pill" data-proj-filter="video">Video</button>
+            <button class="pill" data-proj-filter="3d">3D</button>
+          </div>
+          <button class="toolbar-btn" id="dash-add-proj">＋ Add Project</button>
+        </div>
+      </div>
+      <table class="proj-table">
+        <thead>
+          <tr><th></th><th>Title</th><th>Category</th><th>Visible</th><th>Added</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="proj-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- UPDATES -->
+    <div class="dash-panel" id="panel-updates">
+      <div class="panel-toolbar">
+        <div class="panel-title" style="margin:0">Creative Updates</div>
+        <button class="toolbar-btn" id="dash-add-upd">＋ Add Update</button>
+      </div>
+      <div id="upd-list"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Project Modal -->
+<div class="modal-bg" id="dash-add-proj-modal">
+  <div class="modal">
+    <button class="modal-close" id="dpm-close">✕</button>
+    <div class="modal-title">ADD PROJECT</div>
+    <div class="field"><label>Title</label><input type="text" id="dp-title" placeholder="Project title"></div>
+    <div class="field"><label>Category</label>
+      <select id="dp-cat"><option value="graphic">Graphic Design</option><option value="video">Video</option><option value="3d">3D</option></select>
+    </div>
+    <div class="field"><label>Description</label><textarea id="dp-desc" placeholder="Describe this project..."></textarea></div>
+    <button class="modal-submit" id="dp-submit">Add Project →</button>
+  </div>
+</div>
+
+<!-- Add Update Modal -->
+<div class="modal-bg" id="dash-add-upd-modal">
+  <div class="modal">
+    <button class="modal-close" id="dum-close">✕</button>
+    <div class="modal-title">ADD UPDATE</div>
+    <div class="field"><label>Title</label><input type="text" id="du-title" placeholder="Update title"></div>
+    <div class="field"><label>Category</label>
+      <select id="du-cat"><option value="trend">Trend</option><option value="tool">Tool</option><option value="technique">Technique</option><option value="inspiration">Inspiration</option></select>
+    </div>
+    <div class="field"><label>Summary</label><textarea id="du-summary" placeholder="What's new?"></textarea></div>
+    <div class="field"><label>Source URL</label><input type="url" id="du-url" placeholder="https://..."></div>
+    <div class="field"><label>Tags (comma-separated)</label><input type="text" id="du-tags" placeholder="e.g. 3D,Blender"></div>
+    <div class="field" style="flex-direction:row;align-items:center;gap:.8rem;">
+      <input type="checkbox" id="du-pin" style="width:16px;height:16px;accent-color:var(--green)">
+      <label for="du-pin" style="cursor:pointer;">📌 Pin this update</label>
+    </div>
+    <button class="modal-submit" id="du-submit">Post Update →</button>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script>
+'use strict';
+const { api, API_BASE } = NX;
+
+// ── Date ──────────────────────────────────────────────────────
+document.getElementById('dash-date').textContent =
+  new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+// ── Toast ─────────────────────────────────────────────────────
+const toastEl = document.getElementById('toast');
+function toast(msg, isErr = false) {
+  toastEl.textContent = msg;
+  toastEl.className = 'toast' + (isErr ? ' err' : '');
+  toastEl.classList.add('show');
+  clearTimeout(toastEl._t);
+  toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 3000);
+}
+
+// ── Auth check ────────────────────────────────────────────────
+async function checkAuth() {
+  const { authenticated } = await api('/api/auth/status').catch(() => ({ authenticated: false }));
+  if (!authenticated) window.location.href = '../index.html';
+}
+checkAuth();
+
+document.getElementById('dash-logout').addEventListener('click', async () => {
+  await api('/api/auth/logout', { method: 'POST' }).catch(() => {});
+  window.location.href = '../index.html';
+});
+
+// ── Panel Tabs ────────────────────────────────────────────────
+let currentPanel = 'overview';
+document.querySelectorAll('.snav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.snav-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    currentPanel = btn.dataset.panel;
+    document.getElementById('panel-' + currentPanel).classList.add('active');
+    if (currentPanel === 'messages') loadMessages();
+    if (currentPanel === 'projects') loadProjects();
+    if (currentPanel === 'updates') loadUpdates();
+    if (currentPanel === 'overview') loadOverview();
+  });
+});
+
+// ── Overview ──────────────────────────────────────────────────
+async function loadOverview() {
+  try {
+    const [projects, msgs, updates] = await Promise.all([
+      api('/api/projects/all'), api('/api/contact/messages'), api('/api/updates'),
+    ]);
+    const unread = msgs.filter(m => !m.is_read).length;
+    document.getElementById('stat-projects').textContent = projects.length;
+    document.getElementById('stat-messages').textContent = msgs.length;
+    document.getElementById('stat-unread').textContent   = unread;
+    document.getElementById('stat-updates').textContent  = updates.length;
+    const sbBadge = document.getElementById('sb-badge');
+    if (unread > 0) { sbBadge.textContent = unread; sbBadge.style.display = 'inline'; }
+    // Show last 3 messages
+    const container = document.getElementById('overview-messages');
+    const recent = msgs.slice(0, 3);
+    if (!recent.length) { container.innerHTML = '<div class="msg-empty">No messages yet.</div>'; return; }
+    container.innerHTML = '';
+    recent.forEach(m => container.appendChild(buildMsgCard(m, true)));
+  } catch (e) { console.error(e); }
+}
+loadOverview();
+
+// ── Messages ──────────────────────────────────────────────────
+let allMsgs = []; let msgFilter = 'all';
+async function loadMessages() {
+  try {
+    allMsgs = await api('/api/contact/messages');
+    renderMessages();
+  } catch (e) { toast('Failed to load messages', true); }
+}
+
+function renderMessages() {
+  const list = document.getElementById('msg-list');
+  const filtered = msgFilter === 'unread' ? allMsgs.filter(m => !m.is_read) : allMsgs;
+  if (!filtered.length) { list.innerHTML = '<div class="msg-empty">No messages.</div>'; return; }
+  list.innerHTML = '';
+  filtered.forEach(m => list.appendChild(buildMsgCard(m, false)));
+}
+
+function buildMsgCard(m, compact = false) {
+  const div = document.createElement('div');
+  div.className = 'msg-card' + (!m.is_read ? ' unread' : '');
+  const date = m.created_at ? new Date(m.created_at).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '';
+  div.innerHTML = `
+    <div>
+      <div class="msg-name">${!m.is_read ? '● ' : ''}${m.name}</div>
+      <div class="msg-email">${m.email}</div>
+      ${m.project_type ? `<div class="msg-type">Project: ${m.project_type}</div>` : ''}
+      <div class="msg-body">${m.message}</div>
+      ${!compact ? `<div class="msg-actions">
+        ${!m.is_read ? `<button class="msg-btn read-btn" data-id="${m.id}">Mark Read</button>` : ''}
+        <a href="mailto:${m.email}?subject=Re: Your Enquiry — NXFRAME STUDIO" class="msg-btn">Reply →</a>
+        <button class="msg-btn del-btn" data-id="${m.id}">Delete</button>
+      </div>` : ''}
+    </div>
+    <div class="msg-time">${date}</div>`;
+
+  div.querySelector('.read-btn')?.addEventListener('click', async () => {
+    await api(`/api/contact/messages/${m.id}/read`, { method: 'PUT' }).catch(() => {});
+    m.is_read = true; div.classList.remove('unread');
+    div.querySelector('.read-btn')?.remove();
+    loadOverview();
+  });
+  div.querySelector('.del-btn')?.addEventListener('click', async () => {
+    if (!confirm('Delete this message?')) return;
+    await api(`/api/contact/messages/${m.id}`, { method: 'DELETE', raw: true }).catch(() => {});
+    allMsgs = allMsgs.filter(x => x.id !== m.id);
+    div.remove(); loadOverview(); toast('Message deleted');
+  });
+  return div;
+}
+
+document.querySelectorAll('[data-msg-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-msg-filter]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); msgFilter = btn.dataset.msgFilter; renderMessages();
+  });
+});
+
+// ── Projects ──────────────────────────────────────────────────
+let allProjects = []; let projFilter = 'all';
+const CAT_LABELS = { graphic:'Graphic Design', video:'Video Editing', '3d':'3D Modeling' };
+const CAT_ICONS  = { graphic:'🎨', video:'🎬', '3d':'🧊' };
+
+async function loadProjects() {
+  try {
+    allProjects = await api('/api/projects/all');
+    renderProjects();
+  } catch (e) { toast('Failed to load projects', true); }
+}
+
+function renderProjects() {
+  const tbody = document.getElementById('proj-tbody');
+  const filtered = projFilter === 'all' ? allProjects : allProjects.filter(p => p.category === projFilter);
+  tbody.innerHTML = '';
+  filtered.forEach(p => {
+    const tr = document.createElement('tr');
+    const date = p.created_at ? new Date(p.created_at).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : '—';
+    tr.innerHTML = `
+      <td>${p.image_url ? `<img class="proj-img-thumb" src="${API_BASE}${p.image_url}" alt="">` : `<div class="proj-img-ph">${CAT_ICONS[p.category] || '🎨'}</div>`}</td>
+      <td>${p.title}</td>
+      <td><span class="cat-badge cat-${p.category}">${CAT_LABELS[p.category] || p.category}</span></td>
+      <td><span class="vis-toggle" title="Toggle visibility">${p.is_visible ? '👁️' : '🙈'}</span></td>
+      <td>${date}</td>
+      <td style="display:flex;gap:.5rem;">
+        <button class="tbl-btn del" data-id="${p.id}">Delete</button>
+        <button class="tbl-btn toggle-vis" data-id="${p.id}" data-vis="${p.is_visible}">Hide/Show</button>
+      </td>`;
+    tr.querySelector('.del').addEventListener('click', async () => {
+      if (!confirm(`Delete "${p.title}"?`)) return;
+      await api(`/api/projects/${p.id}`, { method: 'DELETE', raw: true }).catch(() => {});
+      allProjects = allProjects.filter(x => x.id !== p.id); renderProjects(); loadOverview(); toast('Project deleted');
+    });
+    tr.querySelector('.toggle-vis').addEventListener('click', async () => {
+      await api(`/api/projects/${p.id}`, { method: 'PUT', body: JSON.stringify({ is_visible: !p.is_visible }) }).catch(() => {});
+      p.is_visible = !p.is_visible; renderProjects(); toast('Visibility updated');
+    });
+    tbody.appendChild(tr);
+  });
+  if (!filtered.length) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="6" style="text-align:center;padding:2rem;color:var(--grey);font-family:var(--M);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;">No projects found.</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+document.querySelectorAll('[data-proj-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-proj-filter]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); projFilter = btn.dataset.projFilter; renderProjects();
+  });
+});
+
+// Add project modal
+const dpm = document.getElementById('dash-add-proj-modal');
+document.getElementById('dash-add-proj')?.addEventListener('click', () => { dpm.classList.add('on'); });
+document.getElementById('dpm-close')?.addEventListener('click', () => { dpm.classList.remove('on'); });
+dpm?.addEventListener('click', e => { if (e.target === dpm) dpm.classList.remove('on'); });
+document.getElementById('dp-submit')?.addEventListener('click', async () => {
+  const title = document.getElementById('dp-title').value.trim();
+  const cat   = document.getElementById('dp-cat').value;
+  const desc  = document.getElementById('dp-desc').value.trim();
+  if (!title) { toast('Title required', true); return; }
+  try {
+    const p = await api('/api/projects', { method: 'POST', body: JSON.stringify({ title, category: cat, description: desc }) });
+    allProjects.push(p); dpm.classList.remove('on');
+    document.getElementById('dp-title').value = ''; document.getElementById('dp-desc').value = '';
+    renderProjects(); loadOverview(); toast(`✓ "${title}" added`);
+  } catch (err) { toast('✗ ' + err.message, true); }
+});
+
+// ── Updates ───────────────────────────────────────────────────
+let allUpdates = [];
+const CAT_CLASS = { trend:'cat-trend', tool:'cat-tool', technique:'cat-technique', inspiration:'cat-inspiration' };
+const CAT_LABEL = { trend:'Trend', tool:'Tool', technique:'Technique', inspiration:'Inspiration' };
+
+async function loadUpdates() {
+  try {
+    allUpdates = await api('/api/updates');
+    renderUpdates();
+  } catch (e) { toast('Failed to load updates', true); }
+}
+
+function renderUpdates() {
+  const container = document.getElementById('upd-list');
+  container.innerHTML = '';
+  if (!allUpdates.length) {
+    container.innerHTML = '<div class="msg-empty">No updates yet. Add one above.</div>'; return;
+  }
+  allUpdates.forEach(u => {
+    const div = document.createElement('div');
+    div.className = 'upd-table-card';
+    div.innerHTML = `
+      <div>
+        <span class="utc-cat ${CAT_CLASS[u.category] || ''}">${CAT_LABEL[u.category] || u.category}</span>
+        ${u.is_pinned ? ' 📌' : ''}
+        <div class="utc-title">${u.title}</div>
+        <div class="utc-summary">${u.summary.substring(0, 120)}${u.summary.length > 120 ? '...' : ''}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;">
+        <span style="font-family:var(--M);font-size:.52rem;letter-spacing:.1em;color:var(--grey);">
+          ${u.created_at ? new Date(u.created_at).toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : ''}
+        </span>
+        <button class="tbl-btn del" data-id="${u.id}">Delete</button>
+      </div>`;
+    div.querySelector('.del').addEventListener('click', async () => {
+      if (!confirm('Delete this update?')) return;
+      await api(`/api/updates/${u.id}`, { method: 'DELETE', raw: true }).catch(() => {});
+      allUpdates = allUpdates.filter(x => x.id !== u.id);
+      div.remove(); loadOverview(); toast('Update deleted');
+    });
+    container.appendChild(div);
+  });
+}
+
+// Add update modal
+const dum = document.getElementById('dash-add-upd-modal');
+document.getElementById('dash-add-upd')?.addEventListener('click', () => { dum.classList.add('on'); });
+document.getElementById('dum-close')?.addEventListener('click', () => { dum.classList.remove('on'); });
+dum?.addEventListener('click', e => { if (e.target === dum) dum.classList.remove('on'); });
+document.getElementById('du-submit')?.addEventListener('click', async () => {
+  const title   = document.getElementById('du-title').value.trim();
+  const summary = document.getElementById('du-summary').value.trim();
+  if (!title || !summary) { toast('Title and summary required', true); return; }
+  try {
+    const u = await api('/api/updates', { method: 'POST', body: JSON.stringify({
+      title, category: document.getElementById('du-cat').value, summary,
+      source_url: document.getElementById('du-url').value.trim() || null,
+      tags: document.getElementById('du-tags').value.trim() || null,
+      is_pinned: document.getElementById('du-pin').checked,
+    })});
+    allUpdates.unshift(u); dum.classList.remove('on');
+    ['du-title','du-summary','du-url','du-tags'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('du-pin').checked = false;
+    renderUpdates(); loadOverview(); toast(`✓ "${title}" posted`);
+  } catch (err) { toast('✗ ' + err.message, true); }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { dpm.classList.remove('on'); dum.classList.remove('on'); }
+});
+</script>
+</body>
+</html>

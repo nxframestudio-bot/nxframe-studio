@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- SEO -->
+<title>NXFRAME STUDIO — HC Savin | Graphic Designer, Video Editor, 3D Artist</title>
+<meta name="description" content="NXFRAME STUDIO — HC Savin. Creative Director at Marketsphere. Specialising in graphic design, cinematic video editing, and 3D modeling & visualization.">
+<meta name="keywords" content="NXFRAME, HC Savin, graphic design, video editing, 3D modeling, creative director, Marketsphere">
+<meta name="author" content="HC Savin — NXFRAME STUDIO">
+<!-- Open Graph -->
+<meta property="og:title" content="NXFRAME STUDIO — HC Savin">
+<meta property="og:description" content="Graphic Designer · Video Editor · 3D Artist. Creative Head @ Marketsphere.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://yourdomain.com/static/og-image.jpg">
+<meta property="og:url" content="https://yourdomain.com">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NXFRAME STUDIO — HC Savin">
+<meta name="twitter:description" content="Graphic Designer · Video Editor · 3D Artist">
+<link rel="canonical" href="https://yourdomain.com">
+<link rel="stylesheet" href="css/main.css">
+<style>
+/* ── PARTICLES ── */
+#particles-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,.01) 2px,rgba(0,255,136,.01) 4px); pointer-events: none; z-index: 1; }
+
+/* ── HERO ── */
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 4rem; position: relative; overflow: hidden; z-index: 3; }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,255,136,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.035) 1px,transparent 1px); background-size: 64px 64px; animation: gPulse 9s ease-in-out infinite; pointer-events: none; }
+@keyframes gPulse { 0%,100%{opacity:.5}50%{opacity:1} }
+.orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+.orb1 { width: 650px; height: 650px; background: radial-gradient(circle,rgba(0,255,136,.1),transparent 70%); top: -220px; right: -80px; animation: orbFloat 12s ease-in-out infinite; }
+.orb2 { width: 420px; height: 420px; background: radial-gradient(circle,rgba(0,200,100,.07),transparent 70%); bottom: -80px; left: 180px; animation: orbFloat 16s ease-in-out infinite reverse; }
+@keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.06)} }
+
+.hero-eyebrow { font-family: var(--M); font-size: .68rem; letter-spacing: .35em; color: var(--green); text-transform: uppercase; margin-bottom: 1.4rem; opacity: 0; animation: fadeUp .8s .2s forwards; }
+.hero-eyebrow::before { content: '// '; opacity: .5; }
+.hero-name { font-family: var(--D); font-size: clamp(5.5rem,13vw,12rem); line-height: .88; letter-spacing: .04em; opacity: 0; animation: fadeUp .8s .4s forwards; }
+.hero-name .g { color: var(--green); text-shadow: 0 0 50px rgba(0,255,136,.35); }
+/* glitch */
+.glitch { position: relative; display: inline-block; }
+.glitch::before,.glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; }
+.glitch::before { color: #00ff88; clip-path: polygon(0 0,100% 0,100% 35%,0 35%); transform: translate(-3px,-1px); opacity: 0; animation: g1 9s 3s infinite; }
+.glitch::after  { color: #ff0040; clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%); transform: translate(3px,1px); opacity: 0; animation: g2 9s 3s infinite; }
+@keyframes g1 { 0%,90%,100%{opacity:0}91%{opacity:.8;transform:translate(-3px,-1px)}93%{opacity:0}95%{opacity:.8;transform:translate(-2px,0)}97%{opacity:0} }
+@keyframes g2 { 0%,90%,100%{opacity:0}92%{opacity:.8;transform:translate(3px,1px)}94%{opacity:0}96%{opacity:.8;transform:translate(2px,0)}98%{opacity:0} }
+
+.hero-studio { font-family: var(--D); font-size: clamp(2rem,5vw,4.5rem); letter-spacing: .4em; color: transparent; -webkit-text-stroke: 1px rgba(0,255,136,.35); margin-top: .3rem; opacity: 0; animation: fadeUp .8s .6s forwards; }
+.hero-tags { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 2rem; opacity: 0; animation: fadeUp .8s .8s forwards; }
+.hero-tag { font-family: var(--M); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--black); background: var(--green); padding: .4rem .95rem; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+.hero-agency { margin-top: 1.5rem; font-size: .88rem; color: var(--grey); letter-spacing: .1em; opacity: 0; animation: fadeUp .8s 1s forwards; }
+.hero-agency strong { color: var(--green2); }
+.hero-cta { margin-top: 3rem; display: flex; gap: 1rem; align-items: center; opacity: 0; animation: fadeUp .8s 1.2s forwards; flex-wrap: wrap; }
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 4rem; display: flex; align-items: center; gap: .8rem; opacity: 0; animation: fadeUp .8s 1.6s forwards; }
+.scroll-line { width: 50px; height: 1px; background: linear-gradient(to right,var(--green),transparent); animation: sAnim 2s ease-in-out infinite; }
+@keyframes sAnim { 0%,100%{width:50px;opacity:1}50%{width:24px;opacity:.4} }
+.scroll-text { font-family: var(--M); font-size: .58rem; letter-spacing: .28em; color: var(--grey); text-transform: uppercase; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)} }
+
+/* ── TICKER ── */
+.ticker-wrap { overflow: hidden; padding: 1.4rem 0; background: var(--surface); border-top: 1px solid rgba(0,255,136,.07); border-bottom: 1px solid rgba(0,255,136,.07); position: relative; z-index: 3; }
+.ticker { display: flex; animation: tick 22s linear infinite; white-space: nowrap; }
+.ticker-item { font-family: var(--D); font-size: .95rem; letter-spacing: .28em; text-transform: uppercase; color: var(--grey); padding: 0 2.5rem; flex-shrink: 0; }
+.ticker-item span { color: var(--green); }
+@keyframes tick { 0%{transform:translateX(0)}100%{transform:translateX(-50%)} }
+
+/* ── ABOUT ── */
+#about { padding: 8rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; z-index: 3; }
+.about-text { margin-top: 1.8rem; font-size: .97rem; line-height: 1.85; color: rgba(232,255,242,.68); }
+.about-text strong { color: var(--green); }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.8rem; }
+.stat { background: var(--surface); border: 1px solid rgba(0,255,136,.09); padding: 1.4rem; position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
+.stat::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: var(--green); opacity: 0; transition: opacity .3s; }
+.stat:hover { border-color: rgba(0,255,136,.28); transform: translateY(-3px); }
+.stat:hover::before { opacity: 1; }
+.stat-num { font-family: var(--D); font-size: 2.4rem; color: var(--green); line-height: 1; }
+.stat-label { font-family: var(--M); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--grey); margin-top: .4rem; }
+.about-visual { width: 100%; aspect-ratio: 3/4; background: var(--surface); border: 1px solid rgba(0,255,136,.09); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.about-visual::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(0,255,136,.04) 0%,transparent 50%); }
+.av-text { font-family: var(--D); font-size: 7rem; color: transparent; -webkit-text-stroke: 1px rgba(0,255,136,.12); letter-spacing: .1em; text-align: center; line-height: 1; user-select: none; }
+.corner { position: absolute; width: 18px; height: 18px; border-color: var(--green); border-style: solid; opacity: .45; }
+.corner.tl{top:10px;left:10px;border-width:2px 0 0 2px} .corner.tr{top:10px;right:10px;border-width:2px 2px 0 0}
+.corner.bl{bottom:10px;left:10px;border-width:0 0 2px 2px} .corner.br{bottom:10px;right:10px;border-width:0 2px 2px 0}
+
+/* ── SERVICES ── */
+#services { padding: 8rem 4rem; background: var(--black2); position: relative; z-index: 3; }
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(0,255,136,.07); margin-top: 4rem; }
+.service-card { background: var(--black2); padding: 2.8rem 2.4rem; position: relative; overflow: hidden; transition: background .4s; cursor: none; }
+.service-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(0,255,136,.045),transparent); opacity: 0; transition: opacity .4s; }
+.service-card:hover { background: var(--surface); }
+.service-card:hover::after { opacity: 1; }
+.svc-num { font-family: var(--D); font-size: 4.5rem; color: transparent; -webkit-text-stroke: 1px rgba(0,255,136,.1); line-height: 1; margin-bottom: 1.2rem; transition: -webkit-text-stroke-color .4s; }
+.service-card:hover .svc-num { -webkit-text-stroke-color: rgba(0,255,136,.28); }
+.svc-icon { font-size: 1.8rem; margin-bottom: .9rem; }
+.svc-title { font-family: var(--D); font-size: 1.7rem; letter-spacing: .04em; margin-bottom: .8rem; transition: color .3s; }
+.service-card:hover .svc-title { color: var(--green); }
+.svc-desc { font-size: .84rem; line-height: 1.72; color: var(--grey); }
+.svc-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.4rem; }
+.svc-tag { font-family: var(--M); font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(0,255,136,.18); padding: .28rem .65rem; }
+
+/* ── PORTFOLIO ── */
+#portfolio { padding: 8rem 4rem; position: relative; z-index: 3; }
+.portfolio-top { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; }
+.portfolio-filter { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 2rem; }
+.filter-btn { font-family: var(--M); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--grey); background: transparent; border: 1px solid rgba(255,255,255,.09); padding: .55rem 1.35rem; cursor: none; transition: all .3s; }
+.filter-btn.active, .filter-btn:hover { color: var(--black); background: var(--green); border-color: var(--green); }
+#add-project-btn { font-family: var(--M); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--green); background: transparent; border: 1px solid rgba(0,255,136,.28); padding: .65rem 1.4rem; cursor: none; transition: all .3s; display: none; align-items: center; gap: .5rem; }
+#add-project-btn:hover { background: rgba(0,255,136,.07); }
+.p-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .9rem; margin-top: 2rem; }
+.p-item { background: var(--surface); border: 1px solid rgba(0,255,136,.06); overflow: hidden; cursor: none; transition: border-color .3s; position: relative; }
+.p-item:hover { border-color: rgba(0,255,136,.2); }
+.p-visual { width: 100%; padding-bottom: 72%; position: relative; overflow: hidden; }
+.p-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; transition: transform .5s; }
+.p-item:hover .p-ph { transform: scale(1.06); }
+.p-ph-icon { font-size: 2.8rem; opacity: .25; }
+.p-ph-text { font-family: var(--D); font-size: .9rem; letter-spacing: .2em; color: rgba(0,255,136,.18); text-transform: uppercase; }
+.p-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.p-item:hover .p-img { transform: scale(1.06); }
+.pc1{background:linear-gradient(135deg,#0a2015,#030a05)} .pc2{background:linear-gradient(135deg,#071a10,#030a05)}
+.pc3{background:linear-gradient(135deg,#0c250f,#030a05)} .pc4{background:linear-gradient(135deg,#041508,#030a05)}
+.pc5{background:linear-gradient(135deg,#0a1e0d,#030a05)} .pc6{background:linear-gradient(135deg,#061a0a,#030a05)}
+.p-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(3,10,5,.95) 0%,transparent 55%); opacity: 0; transition: opacity .4s; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.4rem; }
+.p-item:hover .p-overlay { opacity: 1; }
+.p-ov-cat { font-family: var(--M); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--green); margin-bottom: .25rem; }
+.p-ov-title { font-family: var(--D); font-size: 1.25rem; letter-spacing: .04em; }
+.p-actions { position: absolute; top: .6rem; right: .6rem; gap: .35rem; z-index: 10; display: none; }
+.p-actions.show { display: flex; }
+.p-act-btn { font-size: .7rem; background: rgba(3,10,5,.88); border: 1px solid rgba(0,255,136,.22); color: var(--green); width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: none; transition: all .2s; }
+.p-act-btn:hover { background: rgba(0,255,136,.14); }
+.p-act-btn.del:hover { background: rgba(255,68,85,.14); border-color: var(--red); color: var(--red); }
+.file-hidden { display: none; }
+.p-info { padding: .9rem 1.1rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0,255,136,.06); }
+.p-info-title { font-size: .78rem; font-weight: 700; }
+.p-info-cat { font-family: var(--M); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey); margin-top: 2px; }
+.p-arrow { color: var(--green); opacity: 0; transform: translateX(-5px); transition: all .3s; }
+.p-item:hover .p-arrow { opacity: 1; transform: translateX(0); }
+.p-empty { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 2rem; border: 2px dashed rgba(0,255,136,.09); gap: 1rem; }
+.p-empty-icon { font-size: 2.8rem; opacity: .18; }
+.p-empty-text { font-family: var(--M); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--grey); }
+
+/* ── CREATIVE UPDATES ── */
+#updates { padding: 8rem 4rem; background: var(--black2); position: relative; z-index: 3; }
+.updates-filter { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 2rem; margin-bottom: 2.5rem; }
+.upd-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.update-card { background: var(--surface); border: 1px solid rgba(0,255,136,.07); padding: 1.8rem; position: relative; transition: border-color .3s, transform .3s; cursor: none; overflow: hidden; }
+.update-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); opacity: 0; transition: opacity .3s; }
+.update-card:hover { border-color: rgba(0,255,136,.2); transform: translateY(-4px); }
+.update-card:hover::before { opacity: 1; }
+.update-card.pinned { border-color: rgba(0,255,136,.18); }
+.upd-cat { font-family: var(--M); font-size: .54rem; letter-spacing: .22em; text-transform: uppercase; padding: .25rem .7rem; display: inline-block; margin-bottom: .9rem; }
+.cat-trend       { color: var(--green);  background: rgba(0,255,136,.09); }
+.cat-tool        { color: var(--blue);   background: rgba(6,214,160,.09); }
+.cat-technique   { color: var(--yellow); background: rgba(255,209,102,.09); }
+.cat-inspiration { color: #c77dff;       background: rgba(199,125,255,.09); }
+.upd-title { font-family: var(--D); font-size: 1.25rem; letter-spacing: .03em; line-height: 1.15; margin-bottom: .8rem; color: var(--white); }
+.upd-summary { font-size: .82rem; line-height: 1.72; color: rgba(232,255,242,.58); }
+.upd-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.1rem; }
+.upd-tag { font-family: var(--M); font-size: .5rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey); border: 1px solid rgba(255,255,255,.07); padding: .2rem .55rem; }
+.upd-pin { position: absolute; top: .8rem; right: .8rem; font-size: .9rem; opacity: .6; }
+.upd-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(0,255,136,.06); }
+.upd-date { font-family: var(--M); font-size: .54rem; letter-spacing: .12em; color: var(--grey); }
+.upd-link { font-family: var(--M); font-size: .54rem; letter-spacing: .14em; color: var(--green); text-decoration: none; transition: opacity .3s; }
+.upd-link:hover { opacity: .7; }
+.upd-admin-btns { display: none; gap: .4rem; }
+.upd-admin-btns.show { display: flex; }
+.upd-adm-btn { font-size: .7rem; background: rgba(3,10,5,.88); border: 1px solid rgba(0,255,136,.22); color: var(--green); width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: none; transition: all .2s; }
+.upd-adm-btn:hover { background: rgba(0,255,136,.14); }
+.upd-adm-btn.del:hover { border-color: var(--red); color: var(--red); }
+
+/* ── CONTACT ── */
+#contact { padding: 8rem 4rem; position: relative; z-index: 3; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-tagline { font-size: .97rem; line-height: 1.82; color: rgba(232,255,242,.62); margin-top: 1.6rem; }
+.social-links { margin-top: 2.8rem; display: flex; flex-direction: column; gap: .9rem; }
+.social-link { display: flex; align-items: center; gap: 1.4rem; text-decoration: none; color: var(--grey); font-family: var(--M); font-size: .72rem; letter-spacing: .1em; padding: .95rem 1.4rem; border: 1px solid rgba(0,255,136,.07); background: var(--surface); transition: all .3s; cursor: none; }
+.social-link:hover { color: var(--green); border-color: rgba(0,255,136,.28); transform: translateX(5px); }
+.social-icon { font-size: 1.15rem; width: 22px; text-align: center; }
+.social-handle { color: var(--white); display: block; }
+.social-link:hover .social-handle { color: var(--green); }
+.social-sub { font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey); }
+.contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+.form-group { display: flex; flex-direction: column; gap: .45rem; }
+.form-label { font-family: var(--M); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--green); }
+.form-input, .form-textarea { background: var(--surface); border: 1px solid rgba(0,255,136,.1); color: var(--white); font-family: var(--B); font-size: .9rem; padding: .95rem 1.1rem; outline: none; width: 100%; transition: border-color .3s, box-shadow .3s; }
+.form-input:focus, .form-textarea:focus { border-color: var(--green); box-shadow: 0 0 14px rgba(0,255,136,.09); }
+.form-textarea { resize: none; height: 130px; }
+.form-submit { font-family: var(--M); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--black); background: var(--green); border: none; padding: 1.1rem 2.8rem; cursor: none; clip-path: polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%); transition: background .3s, box-shadow .3s; box-shadow: 0 0 20px rgba(0,255,136,.2); align-self: flex-start; }
+.form-submit:hover { background: var(--white); box-shadow: 0 0 40px rgba(0,255,136,.5); }
+.form-submit:disabled { opacity: .5; cursor: not-allowed; }
+
+@media (max-width: 1100px) { .upd-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px) {
+  #hero { padding: 0 1.8rem; }
+  #about { grid-template-columns: 1fr; padding: 5rem 1.8rem; gap: 3rem; }
+  .about-right { display: none; }
+  #services { padding: 5rem 1.8rem; } .services-grid { grid-template-columns: 1fr; }
+  #portfolio { padding: 5rem 1.8rem; } .p-grid { grid-template-columns: 1fr 1fr; }
+  #updates { padding: 5rem 1.8rem; } .upd-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; } #contact { padding: 5rem 1.8rem; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 550px) { .p-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="toast" id="toast"></div>
+
+<!-- ── ADMIN LOGIN OVERLAY ── -->
+<div id="login-overlay">
+  <div class="login-box">
+    <button class="lb-close" id="login-close-btn">✕</button>
+    <div class="lb-logo">NXFRAME</div>
+    <div class="lb-sub">Admin Access</div>
+    <label class="lb-label">Password</label>
+    <input type="password" class="lb-input" id="pw-input" placeholder="Enter admin password" autocomplete="off">
+    <div class="lb-error" id="login-err"></div>
+    <button class="lb-btn" id="login-submit">Unlock Admin →</button>
+  </div>
+</div>
+
+<!-- ── ADMIN BAR ── -->
+<div id="admin-bar">
+  <div class="ab-left">
+    <div class="ab-dot"></div>
+    <span class="ab-text">Admin Mode Active</span>
+  </div>
+  <div class="ab-right">
+    <button class="ab-btn" id="dash-btn">📊 Dashboard</button>
+    <button class="ab-btn danger" id="logout-btn">Lock & Exit</button>
+  </div>
+</div>
+
+<!-- ── ADD PROJECT MODAL ── -->
+<div class="modal-bg" id="add-modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div class="modal-title">ADD PROJECT</div>
+    <div class="field"><label>Project Title</label><input type="text" id="m-title" placeholder="e.g. Brand Campaign 2025"></div>
+    <div class="field"><label>Category</label>
+      <select id="m-cat">
+        <option value="graphic">Graphic Design</option>
+        <option value="video">Video Editing</option>
+        <option value="3d">3D Modeling</option>
+      </select>
+    </div>
+    <div class="field"><label>Description</label><textarea id="m-desc" placeholder="Describe this project..."></textarea></div>
+    <label style="font-family:var(--M);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.5rem;">Cover Image</label>
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" accept="image/*" id="modal-file">
+      <div class="drop-zone-icon">🖼️</div>
+      <div class="drop-zone-text"><strong>Click or Drag & Drop</strong>JPG · PNG · WEBP</div>
+      <img class="drop-preview" id="drop-preview">
+    </div>
+    <button class="modal-submit" id="modal-submit-btn">Add to Portfolio →</button>
+  </div>
+</div>
+
+<!-- ── ADD UPDATE MODAL ── -->
+<div class="modal-bg" id="upd-modal">
+  <div class="modal">
+    <button class="modal-close" id="upd-modal-close">✕</button>
+    <div class="modal-title">ADD UPDATE</div>
+    <div class="field"><label>Title</label><input type="text" id="u-title" placeholder="e.g. New Blender Feature Drops"></div>
+    <div class="field"><label>Category</label>
+      <select id="u-cat">
+        <option value="trend">Trend</option>
+        <option value="tool">Tool / Software</option>
+        <option value="technique">Technique</option>
+        <option value="inspiration">Inspiration</option>
+      </select>
+    </div>
+    <div class="field"><label>Summary</label><textarea id="u-summary" placeholder="What's new? Why does it matter?"></textarea></div>
+    <div class="field"><label>Source URL (optional)</label><input type="url" id="u-url" placeholder="https://..."></div>
+    <div class="field"><label>Tags (comma-separated)</label><input type="text" id="u-tags" placeholder="e.g. 3D,Blender,tools"></div>
+    <div class="field" style="flex-direction:row;align-items:center;gap:.8rem;">
+      <input type="checkbox" id="u-pinned" style="width:16px;height:16px;accent-color:var(--green)">
+      <label for="u-pinned" style="cursor:none;">Pin this update</label>
+    </div>
+    <button class="modal-submit" id="upd-submit-btn">Post Update →</button>
+  </div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close-btn" id="lb-close">✕</button>
+    <div class="lb-visual" id="lb-visual"><div class="lb-ph" id="lb-ph"></div></div>
+    <div class="lb-body">
+      <div class="lb-cat" id="lb-cat"></div>
+      <div class="lb-title" id="lb-title"></div>
+      <div class="lb-desc" id="lb-desc"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">NXFRAME</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#updates">Updates</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><button id="admin-nav-btn" class="nav-admin-btn">🔒 Admin<span id="unread-badge"></span></button></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="hero-eyebrow">Creative Director & Visual Artist</div>
+  <h1 class="hero-name"><span class="g glitch" data-text="HC">HC</span><br>SAVIN</h1>
+  <div class="hero-studio">NXFRAME STUDIO</div>
+  <div class="hero-tags">
+    <span class="hero-tag">Graphic Design</span>
+    <span class="hero-tag">Video Editing</span>
+    <span class="hero-tag">3D Modeling</span>
+  </div>
+  <p class="hero-agency">Creative Head @ <strong>Marketsphere</strong> — Digital Marketing Agency</p>
+  <div class="hero-cta">
+    <a href="#portfolio" class="btn-primary">View Work</a>
+    <a href="#contact" class="btn-outline">Let's Talk</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span class="scroll-text">Scroll</span></div>
+</section>
+
+<!-- ── TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">Graphic Design <span>✦</span></span><span class="ticker-item">Video Editing <span>✦</span></span><span class="ticker-item">3D Modeling <span>✦</span></span><span class="ticker-item">Motion Graphics <span>✦</span></span><span class="ticker-item">Brand Identity <span>✦</span></span><span class="ticker-item">Visual Storytelling <span>✦</span></span><span class="ticker-item">Creative Direction <span>✦</span></span>
+    <span class="ticker-item">Graphic Design <span>✦</span></span><span class="ticker-item">Video Editing <span>✦</span></span><span class="ticker-item">3D Modeling <span>✦</span></span><span class="ticker-item">Motion Graphics <span>✦</span></span><span class="ticker-item">Brand Identity <span>✦</span></span><span class="ticker-item">Visual Storytelling <span>✦</span></span><span class="ticker-item">Creative Direction <span>✦</span></span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">CRAFTING<br>VISUAL<br>WORLDS</h2>
+    <p class="about-text">I'm <strong>HC Savin</strong>, the creative force behind <strong>NXFRAME STUDIO</strong> — delivering cinematic visuals, cutting-edge 3D, and bold graphic identities.<br><br>As Creative Head at <strong>Marketsphere</strong>, I lead a team turning ideas into campaigns that stop the scroll, drive engagement, and build brands people remember.</p>
+    <div class="about-stats">
+      <div class="stat"><div class="stat-num" data-target="50" data-suffix="+">0</div><div class="stat-label">Projects Delivered</div></div>
+      <div class="stat"><div class="stat-num" data-target="3" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Client Satisfaction</div></div>
+      <div class="stat"><div class="stat-num" id="inf-stat">0</div><div class="stat-label">Creative Ideas</div></div>
+    </div>
+  </div>
+  <div class="reveal about-right">
+    <div class="about-visual">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div class="av-text">HC<br>NX</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="reveal"><div class="section-label">What I Do</div><h2 class="section-title">SERVICES</h2></div>
+  <div class="services-grid reveal">
+    <div class="service-card"><div class="svc-num">01</div><div class="svc-icon">🎨</div><div class="svc-title">Graphic Design</div><p class="svc-desc">Brand identities, posters, social media graphics, and print materials. Every pixel with intention — bold, clean, unmistakably you.</p><div class="svc-tags"><span class="svc-tag">Brand Identity</span><span class="svc-tag">Logo Design</span><span class="svc-tag">Print</span><span class="svc-tag">Social Media</span></div></div>
+    <div class="service-card"><div class="svc-num">02</div><div class="svc-icon">🎬</div><div class="svc-title">Video Editing</div><p class="svc-desc">Cinematic cuts, colour grading, motion graphics, and storytelling. From reels to full-length content — every frame crafted to captivate.</p><div class="svc-tags"><span class="svc-tag">Colour Grading</span><span class="svc-tag">Reels</span><span class="svc-tag">Commercials</span><span class="svc-tag">Motion VFX</span></div></div>
+    <div class="service-card"><div class="svc-num">03</div><div class="svc-icon">🧊</div><div class="svc-title">3D Modeling</div><p class="svc-desc">Product visualization, environments, and animations. Bringing the impossible to life with high-fidelity 3D artistry and render pipelines.</p><div class="svc-tags"><span class="svc-tag">Product Viz</span><span class="svc-tag">3D Animation</span><span class="svc-tag">Environment</span><span class="svc-tag">Render</span></div></div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="reveal">
+    <div class="portfolio-top">
+      <div><div class="section-label">Selected Work</div><h2 class="section-title">PORTFOLIO</h2></div>
+      <button id="add-project-btn" class="admin-only">＋ Add Project</button>
+    </div>
+    <div class="portfolio-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="graphic">Graphic Design</button>
+      <button class="filter-btn" data-filter="video">Video</button>
+      <button class="filter-btn" data-filter="3d">3D</button>
+    </div>
+  </div>
+  <div class="p-grid reveal" id="p-grid">
+    <div class="p-empty"><div class="p-empty-icon">⏳</div><div class="p-empty-text">Loading projects...</div></div>
+  </div>
+</section>
+
+<!-- ── CREATIVE UPDATES ── -->
+<section id="updates">
+  <div class="reveal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;">
+      <div><div class="section-label">Stay Sharp</div><h2 class="section-title">CREATIVE<br>UPDATES</h2></div>
+      <button id="add-update-btn" class="admin-only btn-outline" style="display:none;">＋ Add Update</button>
+    </div>
+    <div class="updates-filter">
+      <button class="filter-btn active" data-upd-filter="all">All</button>
+      <button class="filter-btn" data-upd-filter="trend">Trends</button>
+      <button class="filter-btn" data-upd-filter="tool">Tools</button>
+      <button class="filter-btn" data-upd-filter="technique">Techniques</button>
+      <button class="filter-btn" data-upd-filter="inspiration">Inspiration</button>
+    </div>
+  </div>
+  <div class="upd-grid reveal" id="upd-grid">
+    <div class="p-empty"><div class="p-empty-icon">⏳</div><div class="p-empty-text">Loading updates...</div></div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">LET'S<br>CREATE<br>TOGETHER</h2>
+      <p class="contact-tagline">Have a project in mind? Whether it's branding, video, 3D, or a full campaign — let's build something that turns heads.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/nxframe_studio?igsh=MXExc3RxaG8weXhkZg==" target="_blank" class="social-link">
+          <span class="social-icon">📸</span>
+          <div><span class="social-handle">@nxframe_studio</span><span class="social-sub">Studio Work</span></div>
+        </a>
+        <a href="https://www.instagram.com/dude_visuals_7?igsh=MWpiajR3ZzJwaTl3dg==" target="_blank" class="social-link">
+          <span class="social-icon">🎨</span>
+          <div><span class="social-handle">@dude_visuals_7</span><span class="social-sub">Personal Visuals</span></div>
+        </a>
+        <a href="https://www.instagram.com/marketsphereagency?igsh=MTE5aDVuYzB3eXQ3" target="_blank" class="social-link">
+          <span class="social-icon">🌐</span>
+          <div><span class="social-handle">@marketsphereagency</span><span class="social-sub">Marketsphere Agency</span></div>
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" id="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-input" id="f-name" placeholder="John Doe" required></div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="f-email" placeholder="hello@example.com" required></div>
+        </div>
+        <div class="form-group"><label class="form-label">Project Type</label><input type="text" class="form-input" id="f-type" placeholder="e.g. Brand Identity, Video Edit, 3D Viz"></div>
+        <div class="form-group"><label class="form-label">Your Message</label><textarea class="form-textarea" id="f-msg" placeholder="Tell me about your project..." required></textarea></div>
+        <button type="submit" class="form-submit" id="form-submit-btn">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">NXFRAME STUDIO</div>
+  <div class="footer-copy">© 2025 <strong>HC Savin</strong> — All Rights Reserved</div>
+  <div class="footer-copy">nxframestudio@gmail.com</div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/core.js"></script>
+<script src="js/portfolio.js"></script>
+<script src="js/updates.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/particles.js"></script>
+</body>
+</html>
